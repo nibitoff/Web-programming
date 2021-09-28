@@ -9,6 +9,5 @@ if (isset($_SESSION['results'])) {
             <td class="<?php echo $result[3] ?>"><?php echo $result[3] ?></td>
             <td><?php echo $result[5] ?></td>
             <td><?php echo $result[4] ?></td>
-            <td><?php echo $result[6] ?></td>
         </tr>
     <?php }} ?>

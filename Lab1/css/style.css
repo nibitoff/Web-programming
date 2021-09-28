@@ -1,0 +1,121 @@
+body {
+    background: #FFF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+}
+
+.header {
+    background-color: rgb(61, 6, 19);
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+.border1{
+    padding: 1%;
+    border-right-color: black;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-left-color: black;
+    border-left-style: solid;
+    border-left-width: 1px;
+    float: left;
+}
+
+.border2{
+    padding: 1%;
+    float: left;
+}
+.header_text{
+    color: #FFFFFF;
+    font-size: 17px;
+    text-align: center;
+    margin-bottom: 13px;
+    margin-top: 0;
+}
+
+/* селектор псевдоэлемента */
+.button_clear:after {
+    content: "Проверка на каскадность.";
+}
+.button_clear:after {
+    content: "313318";
+}
+
+/* селектор атрибута */
+button[class = "submit"]{
+    font-weight: 700;
+    color: white;
+    padding: 2%;
+    border-radius: 10px;
+    background: rgb(61, 6, 19);
+}
+button:hover {
+    background: rgb(96, 19, 38);
+}
+
+.container {
+    margin: auto auto;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    background: #FFFFFF;
+    float: left;
+    width: 25%;
+    height: 500px;
+}
+
+.pic{
+    width: 100%;
+}
+
+.content {
+    float: right;
+    width: 75%;
+    height: 280px;
+}
+
+.clear {
+    clear: both;
+}
+
+.formX{
+    float: left;
+    padding-right: 20px;
+}
+
+.error_text {
+    color: red;
+    font-size: 12px;
+}
+
+.table{
+    float: bottom;
+    width: 80%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20% ;
+    text-align: center;
+    grid-gap: 2vw;
+}
+
+.table_header {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    position: relative;
+}
+.selectX{
+    padding: 2%;
+    float: top;
+}
+/* селектор идентификатора */
+#outputTable {
+    margin-top: 72px;
+    margin-left: 50px;
+    margin-bottom: 20px;
+    border: 1px solid #000720;
+    border-collapse: collapse;
+    width: 90%;
+}

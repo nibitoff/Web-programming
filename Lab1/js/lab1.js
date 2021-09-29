@@ -9,8 +9,8 @@ const maxLength = 15;
 var testNumber = false;
 
 function test(){
-    let ok1 = testMyNumber(y,-4, 4);
-    let ok2 = testMyNumber(r,2, 3);
+    let ok1 = testMyNumber(y,-4.999999999999, 4.999999999999);
+    let ok2 = testMyNumber(r,1.0000000000001, 3.999999999999);
     let ok = ok1 && ok2;
 
     if(ok){
@@ -28,13 +28,10 @@ function test(){
     return ok;
 }
 
-function testR(){
-    return testMyNumber(r,2, 3);
-}
 function testMyNumber(el, min, max){
     let check = true;
     try {
-        check = el.value >= min && el.value <= max && el.value.length > 0;
+        check = el.value >= min && el.value <= max && el.value.length > 0 && el.value.length < 13;
     }catch (e){
         check = false;
     }

@@ -1,7 +1,7 @@
 <?php
 session_start();
-$start = microtime(true); // Время начала исполнения скрипта
-$validX = array(-3, -2, -1, 0, 1, 2, 3, 4, 5);
+$start = microtime(true);
+$correctX = array(-3, -2, -1, 0, 1, 2, 3, 4, 5);
 $r = floatval(htmlspecialchars($_GET["r"]));
 $x = floatval(htmlspecialchars($_GET["x"]));
 $y = floatval(htmlspecialchars($_GET["y"]));
@@ -11,13 +11,13 @@ $answer = "";
 $error_msg = "";
 
 //calculation
-$hyp = 1/2 * $x - $r/2;
-if (($x <= 0 && $y <= 0 && $x > -$r && $y > -$r) ||
+$hyp = -1/2 * $x + $r/2;
+if (($x <= 0 && $y <= 0 && $x >= -$r && $y >= -$r) ||
     ($x >= 0 && $y >= 0 && $y <= $hyp) ||
-    ($x >= 0 && $y <= 0 &&  pow($x, 2) + pow($y, 2) <= pow($r/2,2))){
-    $answer = "Yes";
+    ($x >= 0 && $y <= 0 && pow($x, 2) + pow($y, 2) <= pow($r/2,2))){
+    $answer = "Да";
 }else{
-    $answer = "No";
+    $answer = "Нет";
 }
 //checking
 if (!is_null($r) && !is_null($x) && !is_null($y)) {
@@ -27,7 +27,7 @@ if (!is_null($r) && !is_null($x) && !is_null($y)) {
         if ($r < 1 || $r >4 ) {
             $error_msg  = "R некорректен!";
         }
-        if (!in_array($x, $validX)) {
+        if (!in_array($x, $correctX)) {
             $error_msg  = "X некорректен!";
         }
         if ($y < -5 || $y > 5) {
@@ -36,10 +36,10 @@ if (!is_null($r) && !is_null($x) && !is_null($y)) {
     }
     $timeNow = strval(number_format(microtime(true) - $start, 10, ".", "")*1000) . 'ms';
     $result = array($x, $y, $r, $answer, $timeNow, $timeResponse, $error_msg);
-    if (!isset($_SESSION['results'])) {
-        $_SESSION['results'] = array();
+    if (!isset($_SESSION['answers'])) {
+        $_SESSION['answers'] = array();
     }
-    array_push($_SESSION['results'], $result);
+    array_push($_SESSION['answers'], $result);
 
     if($error_msg != ""){
         print_r('<tr><td>'.$error_msg.'</td></tr>');

@@ -149,9 +149,6 @@
         .buttons{
             padding-top: 3%;
         }
-
-
-
     </style>
 </head>
 <body>
@@ -195,14 +192,14 @@
             <p>
                 Допустимые значения Y: (-5 ... 5)
             </p>
-            <input class="input_number" type="text" name="y" id="y" onblur="test()" placeholder="Введите Y" size="13" required>
+            <input class="input_number" type="text" name="y" id="y" onblur="test()" placeholder="Введите Y" maxlength="12" required>
             <p class="error_text" id="errorY"></p>
         </div>
         <div class="formX, border2">
             <p>
                 Допустимые значения R: (1 ... 4)
             </p>
-            <input class="input_number" type="text" name="r" id="r" onblur="test()" placeholder="Введите R" size="13" required>
+            <input class="input_number" type="text" name="r" id="r" onblur="test()" placeholder="Введите R" maxlength="12" required>
             <p class="error_text" id="errorR"></p>
         </div>
         <div class="buttons">

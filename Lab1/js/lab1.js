@@ -1,29 +1,19 @@
 var x = document.getElementById("x");
 var r = document.getElementById("r");
 var y = document.getElementById("y");
-var errorX = document.getElementById("errorX");
-var errorY = document.getElementById("errorY")
-var errorR = document.getElementById("errorR")
 
 const maxLength = 15;
-var testNumber = false;
 
 function test(){
-    let ok1 = testMyNumber(y,-4.999999999999, 4.999999999999);
-    let ok2 = testMyNumber(r,1.0000000000001, 3.999999999999);
+    let ok1 = testMyNumber(y,-5, 5);
+    let ok2 = testMyNumber(r,1, 4);
     let ok = ok1 && ok2;
 
     if(ok){
-        $('[submit]').removeAttr('disabled');
-        $('[submit]').removeClass("disabled_1");
-        $('[submit]').addClass("submit");
-
-    }
+        $('[submit]').removeAttr('disabled').removeClass("disabled_1").addClass("submit");
+          }
     else {
-        $('[submit]').removeClass("submit");
-        $('[submit]').addClass("disabled_1");
-        $('[submit]').attr('disabled', true);
-
+        $('[submit]').removeClass("submit").addClass("disabled_1").attr('disabled', true);
     }
     return ok;
 }
@@ -31,7 +21,7 @@ function test(){
 function testMyNumber(el, min, max){
     let check = true;
     try {
-        check = el.value >= min && el.value <= max && el.value.length > 0 && el.value.length < 13;
+        check = el.value > min && el.value < max && el.value.length > 0 && el.value.length < 13;
     }catch (e){
         check = false;
     }
@@ -52,10 +42,9 @@ $(document).ready(function () {
         e.preventDefault();
         $.ajax({
             url: "php/clear.php",
-            async: true,
             type: "GET",
-            data: {},
-            success: function(response) {
+            success: function() {
+                let table = document.getElementById("answer_table");
                 table.innerHTML = `
                 <tr>
                     <th>X</th>
@@ -82,13 +71,8 @@ $(document).ready(function() {
             if (check) {
                 $.ajax({
                     url: "php/new.php",
-                    async: true,
                     type: "GET",
-                    data: {
-                        "x": x.value,
-                        "y": y.value,
-                        "r": r.value
-                    },
+                    data: {"x": x.value, "y": y.value, "r": r.value},
                     success: function (response) {
                         let table = document.getElementById("answer_table");
                         table.insertAdjacentHTML('afterend', response);
@@ -118,10 +102,10 @@ $(document).ready(function() {
             }
         })
     });
+
 $(document).ready(function () {
     $.ajax({
         url: "php/save_session.php",
-        async: true,
         type: "GET",
         success: function (response){
             let table = document.getElementById("answer_table");

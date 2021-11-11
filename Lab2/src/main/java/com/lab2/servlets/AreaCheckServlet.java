@@ -22,37 +22,40 @@ public class AreaCheckServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext servletContext = request.getServletContext();
-        check = request.getParameter("check");
-        if (check.equals("clear")) {
-            answer = new LinkedList<>();
-            servletContext.setAttribute("answer", answer);
-            response.sendRedirect("update.jsp");
-            return;
-        }
-        x = Double.parseDouble(request.getParameter("x"));
-        y = Double.parseDouble(request.getParameter("y"));
-        r = Double.parseDouble(request.getParameter("r"));
+            check = request.getParameter("check");
+            x = Double.parseDouble(request.getParameter("x"));
+            y = Double.parseDouble(request.getParameter("y"));
+            r = Double.parseDouble(request.getParameter("r"));
 
-            if (checkRange()) {
-                String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-                long startTime = System.nanoTime();
+            if (checkNull()){
+                if (check.equals("clear")) {
+                    answer = new LinkedList<>();
+                    servletContext.setAttribute("answer", answer);
+                    response.sendRedirect("update.jsp");
+                    return;
+                }
+                if (checkRange()) {
+                    String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+                    long startTime = System.nanoTime();
 
-                checkResult(x, y, r);
-                long timeResponse = (System.nanoTime() - startTime);
-                answer.addFirst("<tr><td>" + x + "</td>" +
-                        "<td>" + y + "</td>" +
-                        "<td>" + r + "</td>" +
-                        "<td>" + message + "</td>" +
-                        "<td>" + timeResponse + " ns" + "</td>" +
-                        "<td>" + currentTime + "</td></tr>");
-            } else {
-                message = "<td>Значение некорректно!</td>";
-                answer.addFirst("<tr>" + message + message + message + message + message + message + "</tr>");
+                    checkResult(x, y, r);
+                    long timeResponse = (System.nanoTime() - startTime);
+                    answer.addFirst("<tr><td>" + x + "</td>" +
+                            "<td>" + y + "</td>" +
+                            "<td>" + r + "</td>" +
+                            "<td>" + message + "</td>" +
+                            "<td>" + timeResponse + " ns" + "</td>" +
+                            "<td>" + currentTime + "</td></tr>");
+                } else {
+                    message = "<td>Значение некорректно!</td>";
+                    answer.addFirst("<tr>" + message + message + message + message + message + message + "</tr>");
+                }
+                servletContext.setAttribute("answer", answer);
+                response.sendRedirect("update.jsp");
             }
-
-
-            servletContext.setAttribute("answer", answer);
-            response.sendRedirect("update.jsp");
+            else {
+                response.setStatus(422);
+            }
         }
 
 
@@ -76,6 +79,11 @@ public class AreaCheckServlet extends HttpServlet {
             return true;
         }
 
-
+        private boolean checkNull(){
+        if (check != null && !check.trim().equals("") && (x != null && y != null && r != null)){
+            return true;
+            }
+            return false;
+        }
     }
 

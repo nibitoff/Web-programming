@@ -1,7 +1,7 @@
 # Лабораторная работа #2
 ### Вариант: 33123
 
-![task](https://github.com/nibibee/Web-programming/blob/main/Lab2/src/main/webapp/images/new.png)
+![task](https://github.com/nibibee/Web-programming/blob/main/Lab2/src/main/webapp/images/task.png)
 
 Разработать веб-приложение на базе сервлетов и JSP, определяющее попадание точки на координатной плоскости в заданную область.
 

@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="header_text">
+      <p class="font1, button_clear">
+        Сабитов Данил
+      </p>
+      <p class="font1">
+        Группа P3233<span>, вариант 33123</span>
+      </p>
+    </div>
+  </div>
+  <div class="sidebar">
+    <h3>
+      Лабораторная работа №2
+    </h3>
+    <!--<img src="images/new.png" class="pic"> -->
+
+    <svg class="mySvg" width="300" height="300">
+      <!--Оси координат-->
+      <line x1="0" y1="150" x2="300" y2="150" stroke="black"></line>
+      <line x1="150" y1="0" x2="150" y2="300" stroke="black"></line>
+      <!--Подписи к осям координат-->
+      <text x="290" y="140">X</text>
+      <text x="160" y="15">Y</text>
+      <text x="265" y="140">R</text>
+
+      <!--Стрелки осей-->
+      <polygon points="300,150 295,155 295, 145" fill="black" stroke="black"></polygon>
+      <polygon points="150,0 145,5 155,5" fill="black" stroke="black"></polygon>
+
+      <!--Оси R и подписи-->
+      <line x1="270" y1="148" x2="270" y2="152" stroke="black"></line>
+      <line x1="210" y1="148" x2="210" y2="152" stroke="black"></line>
+      <text x="200" y="140">R/2</text>
+
+      <line x1="90" y1="148" x2="90" y2="152" stroke="black"></line>
+      <text x="75" y="140">-R/2</text>
+
+      <line x1="30" y1="148" x2="30" y2="152" stroke="black"></line>
+      <text x="20" y="140">-R</text>
+
+      <line x1="148" y1="30" x2="152" y2="30" stroke="black"></line>
+      <text x="156" y="35">R</text>
+
+      <line x1="148" y1="90" x2="152" y2="90" stroke="black"></line>
+      <text x="156" y="95">R/2</text>
+
+      <line x1="148" y1="210" x2="152" y2="210" stroke="black"></line>
+      <text x="156" y="215">-R/2</text>
+
+      <line x1="148" y1="270" x2="152" y2="270" stroke="black"></line>
+      <text x="156" y="275">-R</text>
+
+      <!--График в 1-ой четверти-->
+      <polygon points="150,30 210,150 150,150" fill-opacity="0.5" stroke="#6c172a" fill="#6c172a"></polygon>
+
+      <!--График в 2-ой четверти-->
+      <path d="M150 150 L 30 150 C 30 150 30 30 150 30" fill-opacity="0.5" stroke="#6c172a" fill="#6c172a"></path>
+
+      <!--График в 4-ой четверти-->
+      <rect x="150" y="150" width="60" height="120" fill-opacity="0.5" stroke="#6c172a" fill="#6c172a"></rect>
+      <circle id="point" r="4" cx="150" cy="150" fill-opacity="0.8" fill="#6c172a" stroke="#6c172a" visibility="hidden"></circle>
+    </svg>
+  </div>
+  <div class="content">
+    <form>
+      <div id="formX" class="border2">
+        <p>Выберите X:</p>
+        <fieldset>
+          <div>
+            <input class="checkGroup" type="checkbox" name="x" id="x-4">
+            <label for="x-4">-4</label>
+            <input class="checkGroup" type="checkbox"  name="x" id="x-3">
+            <label for="x-3">-3</label>
+            <input class="checkGroup" type="checkbox" name="x" id="x-2">
+            <label for="x-2">-2</label>
+          </div>
+
+          <div>
+            <input class="checkGroup" type="checkbox" name="x"  id="x-1">
+            <label for="x-1">-1</label>
+            <input class="checkGroup" type="checkbox" name="x"  id="x0">
+            <label for="x0">0</label>
+            <input class="checkGroup" type="checkbox" name="x"  id="x1">
+            <label for="x1">1</label>
+          </div>
+
+          <div>
+            <input class="checkGroup" type="checkbox" name="x" id="x2">
+            <label for="x2">2</label>
+            <input class="checkGroup" type="checkbox" name="x" id="x3">
+            <label for="x3">3</label>
+            <input class="checkGroup" type="checkbox" name="x" id="x4">
+            <label for="x4">4</label>
+          </div>
+
+          </select>
+        </fieldset>
+        <span class="error_text" id="errorX"></span>
+
+      </div>
+      <div class="form, border1">
+        <p>
+          Допустимые значения Y: (-3 ... 5)
+        </p>
+        <input class="input_number" type="text" name="y" id="y" placeholder="Введите Y" maxlength="16" required>
+        <p class="error_text" id="errorY"></p>
+      </div>
+      <div class="form, border2">
+        <p>
+          Выберите R:
+        </p>
+        <select class="selectX" name="r" id="r">
+          <option value="-1"></option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <p class="error_text" id="errorR"></p>
+      </div>
+      <div class="buttons">
+        <button class="submit" id ="submit" onclick="if(!testInputs()) return false;">
+          Проверить
+        </button>
+        <button class="submit" id = "clear_table" onclick="sendToClearContext()">
+          Очистить
+        </button>
+      </div>
+    </form>
+    <div id = "rbox">
+      <table id="outputTable">
+        <tr>
+          <th>X</th>
+          <th>Y</th>
+          <th>R</th>
+          <th>Попадание</th>
+          <th>Время обработки</th>
+          <th>Время выполнения</th>
+        </tr>
+        <tbody id = "tbody1">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script charset="utf-8" src="js/jquery-3.6.0.min.js" type="text/javascript"></script>
+<script charset="utf-8" src="js/lab.js" type="text/javascript"></script>
+<script charset="utf-8" src="js/graphValidator.js" type="text/javascript"></script>
+</body>
+</html>

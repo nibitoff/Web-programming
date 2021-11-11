@@ -7,7 +7,6 @@
     if(context.getAttribute("answer") != null) {
         LinkedList<String> answer = (LinkedList<String>) context.getAttribute("answer");
         for (String s : answer) {
-            System.out.println(s);
             out.println(s);
         }
 

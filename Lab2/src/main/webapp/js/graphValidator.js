@@ -11,11 +11,11 @@ function checkAreaCoordinates(){
     if (checkXArea() && checkYArea()){
         return true;
     }
-    if (!checkXArea()){
-        errorMsg += "X должен находиться в диапазоне [-4;4]!"
+    if (!checkXArea()) {
+        errorMsg = "X must be in range [-4;4]!";
     }
     if (!checkYArea()){
-        errorMsg += "\n Y должен находиться в диапазоне (-3;5)!"
+        errorMsg = "Y must be in range (-3;5)!";
     }
     alert(errorMsg);
 }

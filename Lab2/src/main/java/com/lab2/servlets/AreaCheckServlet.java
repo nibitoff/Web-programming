@@ -46,7 +46,7 @@ public class AreaCheckServlet extends HttpServlet {
                         "<td>" + timeResponse + " ns" + "</td>" +
                         "<td>" + currentTime + "</td></tr>");
             } else {
-                message = "<td>Çíà÷åíèå íåêîððåêòíî!</td>";
+                message = "<td>Значение некорректно!</td>";
                 answer.addFirst("<tr>" + message + message + message + message + message + message + "</tr>");
             }
 
@@ -61,9 +61,9 @@ public class AreaCheckServlet extends HttpServlet {
             if ((x <= 0 && y >= 0 && x * x + y * y <= r * r) ||
                     (x >= 0 && y <= 0 && x <= r / 2 && y <= r) ||
                     (x >= 0 && y >= 0 && y <= (-2 * x + r))) {
-                message = "Äà";
+                message = "Да";
             } else {
-                message = "Íåò";
+                message = "Нет";
             }
         }
 

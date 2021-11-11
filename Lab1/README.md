@@ -1,7 +1,7 @@
 # Лабораторная работа #1
 ### Вариант: 313318
 
-![task](https://github.com/nibibee/Web-programming/blob/main/Lab1/images/new.png)
+![task](https://github.com/nibibee/Web-programming/blob/main/Lab1/images/task.png)
 
 Разработать PHP-скрипт, определяющий попадание точки на координатной плоскости в заданную область, и создать HTML-страницу, которая формирует данные для отправки их на обработку этому скрипту.
 

@@ -16,19 +16,12 @@ public class ControllerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ServletContext servletContext = request.getServletContext();
-
         String check = request.getParameter("check");
         String x = request.getParameter("x");
         String y = request.getParameter("y");
         String r = request.getParameter("r");
 
-        if (check.equals("clear")) {
-            LinkedList<String> answer = new LinkedList<>();
-            answer.clear();
-            servletContext.setAttribute("answer", answer);
-            response.sendRedirect("update.jsp");
-        }else if(check.equals("reload")){
+        if(check.equals("reload")){
             response.sendRedirect("update.jsp");
         }
         else {

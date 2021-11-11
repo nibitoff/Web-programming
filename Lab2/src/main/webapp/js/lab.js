@@ -28,7 +28,6 @@ function testR(){
 function testCheckbox(){
     let checkB = false;
     $(".checkGroup").each(function () {
-        console.log($(this).prop("checked"));
         if ($(this).prop("checked") == true) {
             $(".error_text#errorX").html("");
             checkB = true;
@@ -59,10 +58,14 @@ function testMyNumber(el, min, max){
 }
 
 function testInputs() {
+     x = document.getElementById("x");
+     r = document.getElementById("r");
+     y = document.getElementById("y");
     let ok1 = testMyNumber(y, -3, 5);
     let ok2 = testCheckbox();
     let ok3 = testR();
     let ok = ok1 && ok2 && ok3;
+
     if (ok){
         let X;
         $('input.checkGroup:checkbox:checked').each(function () {
@@ -70,7 +73,6 @@ function testInputs() {
         });
         coordinatesX = X * 120 / r + 150;
         coordinatesY = y.value * -120 / r + 150;
-        console.log(coordinatesX + " " + coordinatesY);
         setPoints();
         try {
             sendRequest("no", X, y.value, r);
@@ -120,7 +122,8 @@ function sendRequest(check, x, y, r){
             document.getElementById('tbody1').innerHTML = response;
         },
         error :function (){
-            alert("Ошибка при передаче!");
+            alert("Ошибка при передаче данных!");
+            unsetPoints();
         }
     });
     }

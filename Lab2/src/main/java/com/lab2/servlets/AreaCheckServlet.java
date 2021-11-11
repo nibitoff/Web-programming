@@ -16,13 +16,22 @@ public class AreaCheckServlet extends HttpServlet {
     LinkedList<String> answer = new LinkedList<>();
     String message;
     Double x, y, r;
+    String check;
+    String xFormat, yFormat;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ServletContext servletContext = request.getServletContext();
-            x = Double.parseDouble(request.getParameter("x"));
-            y = Double.parseDouble(request.getParameter("y"));
-            r = Double.parseDouble(request.getParameter("r"));
+        check = request.getParameter("check");
+        if (check.equals("clear")) {
+            answer = new LinkedList<>();
+            servletContext.setAttribute("answer", answer);
+            response.sendRedirect("update.jsp");
+            return;
+        }
+        x = Double.parseDouble(request.getParameter("x"));
+        y = Double.parseDouble(request.getParameter("y"));
+        r = Double.parseDouble(request.getParameter("r"));
 
             if (checkRange()) {
                 String currentTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));

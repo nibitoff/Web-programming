@@ -2,6 +2,7 @@ import beans.TimeBean;
 import entity.Result;
 import utils.HitValidator;
 
+import javax.annotation.PreDestroy;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.*;
@@ -12,8 +13,8 @@ import java.util.List;
 
 @ManagedBean
 @ApplicationScoped
-public class ResultBean implements Serializable {
-    private List<Result> resultList = new ArrayList<>();
+public class ResultBean {
+    private List<Result> resultList;
     private Result newResult;
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
@@ -26,72 +27,78 @@ public class ResultBean implements Serializable {
         newResult = new Result();
     }
 
-    private void connectToDB() {
+     private void connectToDB() {
         try {
-            entityManagerFactory = Persistence.createEntityManagerFactory("persist");
-           System.out.println("CHECKING ERRORRS");
+            entityManagerFactory = Persistence.createEntityManagerFactory("tableunit");
             entityManager = entityManagerFactory.createEntityManager();
-            System.out.println("CHECKING ERRORS2");
             entityTransaction = entityManager.getTransaction();
             System.out.println("База данных успешна подключена!");
         } catch (Exception e) {
-            System.out.println("Ошибка базы данных!" + e.getMessage());
+            System.out.println("Ошибка при подключении базы данных!" + e.getMessage());
         }
     }
 
-    synchronized private void loadDB() {
-        resultList = new ArrayList<>();
+     private void loadDB() {
         try {
+            connectToDB();
             entityTransaction.begin();
-            System.out.println("CHECKING ERRORS12");
-            resultList = entityManager.createQuery("SELECT d FROM Result d").getResultList();
-            System.out.println("CHECKING ERRORS13");
+            resultList = entityManager.createQuery("SELECT d FROM Result d", Result.class).getResultList();
             entityTransaction.commit();
-            System.out.println("CHECKING ERRORS14");
-        } catch (RuntimeException e) {
+            System.out.println("Данные из базы данных успешно загружены!");
+            entityManager.close();
+        } catch (Exception e) {
                 if (entityTransaction.isActive()) {
                     entityTransaction.rollback();
                 }
-                System.out.println(e.getMessage());
+                System.out.println("Ошибка при загрузке данных из базы данных! " + e.getMessage());
         }
     }
 
 
     public void addResults() {
         try {
-            long startTime = System.nanoTime();
+            connectToDB();
             entityTransaction.begin();
-            double executionTime = (System.nanoTime() - startTime);
+            long startTime = System.nanoTime();
+            double time = (System.nanoTime() - startTime);
             if ((validator.checkNull(newResult.getX(), newResult.getY(), newResult.getR()))) {
                 newResult.setResult(validator.checkResult(newResult.getX(), newResult.getY(), newResult.getR()));
                 TimeBean timeBean = new TimeBean();
                 newResult.setCurrentTime(timeBean.learnTime(startTime));
-                newResult.setExecutionTime(String.valueOf(executionTime));
+                newResult.setExecutionTime(time);
                 resultList.add(newResult);
+                System.out.println(newResult.toString());
                 entityManager.persist(newResult);
                 entityTransaction.commit();
+                System.out.println("Added");
+                entityManager.close();
                 newResult = new Result();
             } else {
                 System.out.println("Ошибка при проверке данных!");
             }
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             if (entityTransaction.isActive()) {
                 entityTransaction.rollback();
             }
-            System.out.println("Ошибка базы данных!");
+            System.out.println("Ошибка базы данных!" + e.getMessage());
         }
     }
 
     public void clearResults() {
         try {
+            connectToDB();
             entityTransaction.begin();
-            entityManager.createQuery("DELETE FROM Result").executeUpdate();
+            entityManager.createQuery("DELETE FROM Result", Result.class).executeUpdate();
             resultList.clear();
             entityTransaction.commit();
-        } catch (RuntimeException e) {
+            System.out.println("База данных успешно очищена!");
+            entityManager.close();
+        } catch (Exception e) {
             if (entityTransaction.isActive()) {
                 entityTransaction.rollback();
             }
+            System.out.println("Ошибка при очистке базы данных!" + e.getMessage());
+
         }
     }
 

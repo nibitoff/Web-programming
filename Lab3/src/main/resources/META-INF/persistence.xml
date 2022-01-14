@@ -1,17 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<persistence version="1.0"
-             xmlns="http://java.sun.com/xml/ns/persistence"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
-    <persistence-unit name="persist">
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xsi:schemaLocation="
+ http://xmlns.jcp.org/xml/ns/persistence 
+ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="tableunit">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>java:/jboss/datasources/oracleDS</jta-data-source>
         <class>entity.Result</class>
         <properties>
-            <property name="eclipselink.logging.level" value="FINE"/>
-            <property name="eclipselink.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
-            <property name="eclipselink.jdbc.url" value="jdbc:oracle:thin:@localhost:1522:XE"/>
-            <property name="eclipselink.jdbc.password" value="mes758"/>
-            <property name="eclipselink.jdbc.user" value="SYSTEM"/>
             <property name="eclipselink.ddl-generation" value="create-tables" />
             <property name="eclipselink.ddl-generation.output-mode" value="database" />
         </properties>

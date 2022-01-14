@@ -10,8 +10,7 @@ public class TimeBean implements Serializable {
 
     public String learnTime(long time){
         SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-        String timeResp = formatter.format(new Date(System.currentTimeMillis()));
-        return timeResp;
+        return formatter.format(new Date(System.currentTimeMillis()));
     }
 
 }

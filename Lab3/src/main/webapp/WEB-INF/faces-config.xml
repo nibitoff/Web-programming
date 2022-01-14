@@ -5,7 +5,7 @@
     http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
 
     <navigation-rule>
-           <from-view-id>/index.xhtml</from-view-id>
+           <from-view-id>*</from-view-id>
            <navigation-case>
                <from-outcome>toApp</from-outcome>
                <to-view-id>/app.xhtml</to-view-id>
@@ -14,7 +14,7 @@
        </navigation-rule>
 
        <navigation-rule>
-           <from-view-id>/app.xhtml</from-view-id>
+           <from-view-id>*</from-view-id>
            <navigation-case>
                <from-outcome>toIndex</from-outcome>
                <to-view-id>/index.xhtml</to-view-id>

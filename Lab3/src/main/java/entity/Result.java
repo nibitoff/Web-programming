@@ -6,50 +6,50 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name = "RESULTS")
+@Table(name = "MYRESULTS")
 public class Result implements Serializable {
         @Id
         @Column(name = "ID")
-        @SequenceGenerator(name = "idSequence", sequenceName = "idSequence", allocationSize = 1, initialValue = 1)
-        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idSequence")
+        @GeneratedValue(strategy = GenerationType.AUTO, generator = "make_id")
         private int id;
 
-        @Column(name = "X")
+        @Column(name = "valueX")
         private double x;
 
-        @Column(name = "Y")
+        @Column(name = "valueY")
         private double y;
 
-        @Column(name = "R")
+        @Column(name = "valueR")
         private double r;
 
-        @Column(name = "currentTime")
+        @Column(name = "currTime", length = 100)
         private String currentTime;
 
-        @Column(name = "executionTime")
-        private String executionTime;
+        @Column(name = "execTime")
+        private double time;
 
-        @Column(name = "RESULT")
+        @Column(name = "myResult", length = 100)
         private boolean result;
 
     public Result() {}
 
-    public Result(double x, double y, double r, String currentTime, String executionTime) {
+    public Result(double x, double y, double r, String currentTime, double time) {
         this.x = x;
         this.y = y;
         this.r = r;
         this.currentTime = currentTime;
-        this.executionTime = executionTime;
+        this.time = time;
     }
 
     @Override
         public String toString() {
             return "Result{" +
+                "id" + id +
                 "x=" + x +
                 ", y=" + y +
                 ", r=" + r +
                 ", currentTime='" + currentTime +
-                ", executionTime=" + executionTime +
+                ", time=" + time +
                 ", result=" + result +
                 '}';
     }
@@ -93,12 +93,12 @@ public class Result implements Serializable {
                 this.currentTime = currentTime;
         }
 
-        public String getExecutionTime() {
-                return executionTime;
+        public double getExecutionTime() {
+                return time;
         }
 
-        public void setExecutionTime(String executionTime) {
-                this.executionTime = executionTime;
+        public void setExecutionTime(double time) {
+                this.time = time;
         }
 
         public boolean isResult() {
@@ -114,7 +114,7 @@ public class Result implements Serializable {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
                 Result result1 = (Result) o;
-                return executionTime == result1.executionTime && result == result1.result &&
+                return time == result1.time && result == result1.result &&
                         Objects.equals(x, result1.x) && Objects.equals(y, result1.y) &&
                         Objects.equals(r, result1.r) && Objects.equals(currentTime, result1.currentTime);
         }

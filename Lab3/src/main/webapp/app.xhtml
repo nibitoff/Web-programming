@@ -30,20 +30,18 @@
             <div>
                 <p:outputLabel>Выберите x:</p:outputLabel>
                 <p:panelGrid columns="2">
-                    <p:spinner name="x" min="-3" max="3" placeholder="(-3..3)" id="coord-x"
+                    <p:spinner name="x" maxlength="17" min="-3" max="3" placeholder="(-3..3)" id="coord-x"
                                value="#{resultBean.newResult.x}">
 
                     </p:spinner>
-                    <p:message id="x-error" for="coord-x" display="icon"/>
                 </p:panelGrid>
             </div>
             <div>
                 <h:outputLabel>Допустимые значения Y: (-3 ... 5)</h:outputLabel>
                 <p:panelGrid columns="2">
                     <p:inputText maxlength="17" name="y" id="coord-y"
-                                 placeholder="(-3..5)" value="#{resultBean.newResult.y}" type="number" >
+                                 placeholder="(-3..5)" value="#{resultBean.newResult.y}">
                     </p:inputText>
-                    <p:message id="y-error" for="coord-y" display="icon"/>
                 </p:panelGrid>
             </div>
             <div>
@@ -57,7 +55,6 @@
                         <f:selectItem class="checkGroup" itemValue="5" itemLabel="5"/>
                         <f:validateRequired/>
                     </h:selectOneRadio >
-                    <p:message id="r-error" for="coord-r" display="icon"/>
                 </p:panelGrid>
             </div>
             <div>
@@ -65,8 +62,8 @@
                                  value="Проверить" update="panel">
                     <f:ajax execute="input-f" render="panel"/>
                 </p:commandButton>
-                <span>&nbsp;&nbsp;&nbsp;</span>
-
+            </div>
+            <div style="padding: 10px">
                 <p:commandButton id="clearBtn" type="submit" value="Очистить"
                                  action="#{resultBean.clearResults}" update="panel">
                     <f:ajax execute="input-f" render="panel"/>

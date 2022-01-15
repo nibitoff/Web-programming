@@ -9,7 +9,7 @@ public class HitValidator {
 
     //checking for unwanted values
     public boolean checkRange(double x, double y, double r) {
-        if (x <= -3 || x >= 3 || y < -3 || y > 5 || r < 1 || r > 5) {
+        if (x < -3 || x > 3 || y <= -3 || y >= 5 || r < 1 || r > 5) {
             return false;
         }
         return true;

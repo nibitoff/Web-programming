@@ -61,7 +61,8 @@ public class ResultBean {
             entityTransaction.begin();
             long startTime = System.nanoTime();
             double time = (System.nanoTime() - startTime);
-            if ((validator.checkNull(newResult.getX(), newResult.getY(), newResult.getR()))) {
+            if ((validator.checkNull(newResult.getX(), newResult.getY(), newResult.getR())) &&
+            validator.checkRange(newResult.getX(), newResult.getY(), newResult.getR())) {
                 newResult.setResult(validator.checkResult(newResult.getX(), newResult.getY(), newResult.getR()));
                 TimeBean timeBean = new TimeBean();
                 newResult.setCurrentTime(timeBean.learnTime(startTime));

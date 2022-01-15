@@ -109,14 +109,5 @@ public class Result implements Serializable {
                 this.result = result;
         }
 
-        @Override
-        public boolean equals(Object o) {
-                if (this == o) return true;
-                if (o == null || getClass() != o.getClass()) return false;
-                Result result1 = (Result) o;
-                return time == result1.time && result == result1.result &&
-                        Objects.equals(x, result1.x) && Objects.equals(y, result1.y) &&
-                        Objects.equals(r, result1.r) && Objects.equals(currentTime, result1.currentTime);
-        }
 
 }

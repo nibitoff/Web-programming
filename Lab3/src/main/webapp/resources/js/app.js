@@ -1,6 +1,3 @@
-let paramX = "input-f:coord-x";
-let paramR = "input-f:coord-r";
-let paramY = "input-f:coord-y";
 let y;
 let r;
 let x;
@@ -23,43 +20,47 @@ document.getElementById("area_svg").addEventListener("mousedown", function (e){
 });
 
 $("#input-f").find("input[type=radio]").click(function() {
-    console.log("R changed");
-    let x,
-        y,
-        r;
     deletePoints();
     drawAll();
 });
 
-
-
-function handleYInput(){
-     y = document.getElementById("input-f:coord-y").value;
-        let check = false;
-        try {
-            check = y > -3 && y < 5 && el.value.length < 17;
-        }catch (e){
-            check = false;
-        }
-        if (!check){
-            $(y).parent().find("#x-error").html("¬ведите правильное значение!");
-        }
-        else {
-            $(y).parent().find("#x-error").html("");
-        }
-        return check;
+document.getElementById("input-f:submitBtn").addEventListener('click', function (e) {
+    x = document.getElementById("input-f:coord-x_input").value;
+    y = document.getElementById("input-f:coord-y").value;
+    let ok1 = testMyNumber(x, -4, 4);
+    let ok2 = testMyNumber(y, -3, 5);
+    if (ok1 && ok2 && checkR()){
+        setTimeout(function () {
+            drawPoint(x, y, r, checkAnswer(), true);
+        }, 300);
     }
+    return false;
+
+});
+
+function testMyNumber(el, min, max){
+    let check = false;
+    try {
+        check = el > min && el < max;
+    }catch (e){
+        check = false;
+    }
+    if (!check){
+        alert("ERROR! Check inputs!");
+    }
+    return check;
+}
 
 function checkR() {
     let check = $("#input-f").find("input:checked").length;
     if (check == 1) {
         r = $("#input-f").find("input:checked")[0].value;
         return true
-    } else return false;}
-    // console.log($("#input-f").find("input:checked")[0].value);
-
-
-//document.getElementById("input-f:coord-x_input").value;
+    } else{
+        alert("Check R value!");
+        return false;
+    }
+}
 
     function drawAll() {
         $(".outputTable tbody tr").each(function () {
@@ -67,21 +68,22 @@ function checkR() {
             let yP = parseFloat($(this).find("td:nth-child(2)").text());
             let rP = parseFloat($(this).find("td:nth-child(3)").text());
             let ansP = $(this).find("td:nth-child(6)").text().toString().trim().toLowerCase();
-            let flagForR;
-            let flagForColor;
+            let flagR;
+            let flagColor;
             if (!isNaN(xP) && !isNaN(yP)) {
-                if (ansP.length == 2) {
-                    flagForR = (r == rP);
-                    drawPoint(xP, yP, rP, "green");
+                flagColor = (ansP.length == 2);
+                if (r) {
+                    flagR = (r == rP);
+                    drawPoint(xP, yP, rP, flagColor, flagR);
                 } else {
-                    flagForR = (1 == rP);
-                    drawPoint(xP, yP, rP, "red");
+                    flagR = false;
+                    drawPoint(xP, yP, rP, flagColor, flagR);
                 }
             }
         });
     }
 
-function drawPoint(x, y, r, color) {
+function drawPoint(x, y, r, color, flagR) {
     let point = document.createElementNS("http://www.w3.org/2000/svg", 'circle');
     point.setAttribute('cx', (120 * x / r + 150).toString());
     point.setAttribute('cy', (-120 * y / r + 150).toString());
@@ -89,39 +91,35 @@ function drawPoint(x, y, r, color) {
     point.setAttribute('data-x', x);
     point.setAttribute('data-y', y);
     point.classList.add("circle");
-    point.style.fill = color;
-    document.getElementsByTagName("svg")[0].appendChild(point);}
+    if (!flagR) {
+        point.style.fill = "blue";
+    }
+    else if (color){
+        point.style.fill = "green";
+    }
+    else {
+        point.style.fill = "red";
+    }
+    document.getElementsByTagName("svg")[0].appendChild(point);
+
+}
 
 
 function deletePoints() {
    var svg = document.getElementsByTagName("svg")[0].getElementsByClassName("circle");
    $(svg).remove();
-   /*
-   document.querySelectorAll(".good-coord").forEach(x => x.remove());
-    document.querySelectorAll(".bad-coord").forEach(x => x.remove());
-    document.querySelectorAll(".old-coord").forEach(x => x.remove());
-
-    */
 }
 
 document.getElementById("input-f:clearBtn").addEventListener('click', function (e) {
     deletePoints();
 });
 
-/*
-document.getElementById("input-f:submitBtn").addEventListener('click', function (e) {
-    e.preventDefault();
-        drawPoint(x, y, r, checkAnswer(), true);
-});
-drawAll();
 
-
- */
-
-
-
-
-
+function checkAnswer() {
+    return (x >= 0 && y >= 0 && x * x + y * y <= r * r) ||
+        (x <= 0 && y <= 0 && x >= -r/2 && y >= -r) ||
+        (x >= 0 && y <= 0 && y >= (2 * x - r));
+}
 
 
 

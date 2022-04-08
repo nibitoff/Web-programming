@@ -1,2 +1,2 @@
 # Web-programming
- 2nd course ITMO
+Web-programming at second year at ITMO

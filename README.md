@@ -1,2 +1,2 @@
 # Web-programming
-Web-programming at second year at ITMO
+Web-programming labs from second year at ITMO

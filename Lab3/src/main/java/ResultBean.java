@@ -32,9 +32,9 @@ public class ResultBean {
             entityManagerFactory = Persistence.createEntityManagerFactory("tableunit");
             entityManager = entityManagerFactory.createEntityManager();
             entityTransaction = entityManager.getTransaction();
-            System.out.println("База данных успешна подключена!");
+            System.out.println("Database successfully connected!");
         } catch (Exception e) {
-            System.out.println("Ошибка при подключении базы данных!" + e.getMessage());
+            System.out.println("Error with database connection! " + e.getMessage());
         }
     }
 
@@ -44,13 +44,13 @@ public class ResultBean {
             entityTransaction.begin();
             resultList = entityManager.createQuery("SELECT d FROM Result d", Result.class).getResultList();
             entityTransaction.commit();
-            System.out.println("Данные из базы данных успешно загружены!");
+            System.out.println("Data from database was successfully loaded!");
             entityManager.close();
         } catch (Exception e) {
                 if (entityTransaction.isActive()) {
                     entityTransaction.rollback();
                 }
-                System.out.println("Ошибка при загрузке данных из базы данных! " + e.getMessage());
+                System.out.println("Error with loading data from database! " + e.getMessage());
         }
     }
 
@@ -75,13 +75,13 @@ public class ResultBean {
                 entityManager.close();
                 newResult = new Result();
             } else {
-                System.out.println("Ошибка при проверке данных!");
+                System.out.println("Error with data validation!");
             }
         } catch (Exception e) {
             if (entityTransaction.isActive()) {
                 entityTransaction.rollback();
             }
-            System.out.println("Ошибка базы данных!" + e.getMessage());
+            System.out.println("Error with database! " + e.getMessage());
         }
     }
 
@@ -92,13 +92,13 @@ public class ResultBean {
             entityManager.createQuery("DELETE FROM Result", Result.class).executeUpdate();
             resultList.clear();
             entityTransaction.commit();
-            System.out.println("База данных успешно очищена!");
+            System.out.println("Database was successfully cleared!");
             entityManager.close();
         } catch (Exception e) {
             if (entityTransaction.isActive()) {
                 entityTransaction.rollback();
             }
-            System.out.println("Ошибка при очистке базы данных!" + e.getMessage());
+            System.out.println("Error with database cleanup!" + e.getMessage());
 
         }
     }
